@@ -7,22 +7,30 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.tvsolutions.bloggg.models.AppUser;
 import ua.tvsolutions.bloggg.models.Role;
 import ua.tvsolutions.bloggg.repos.AppUserRepository;
+import ua.tvsolutions.bloggg.repos.RoleRepository;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 @Service
 public class AppUserService implements UserDetailsService {
+
     private AppUserRepository appUserRepository;
+    private RoleRepository roleRepository;
 
     @Autowired
-    public void setAppUserRepository(AppUserRepository appUserRepository) {
+    public void setAppUserRepository(AppUserRepository appUserRepository,
+                                     RoleRepository roleRepository) {
         this.appUserRepository = appUserRepository;
+        this.roleRepository = roleRepository;
     }
 
     @Override
@@ -33,7 +41,18 @@ public class AppUserService implements UserDetailsService {
                 mapRolesToAuthorities(appUser.getRoles()));
     }
 
+
+
     Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<? extends Role> roles){
         return roles.stream().map(r->new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void registerNewUser(AppUser appUser) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String cryptPassword = encoder.encode(appUser.getPassword());
+        appUser.setPassword(cryptPassword);
+        appUser.setRoles(Collections.singleton(roleRepository.findByName("ROLE_USER")));
+        appUserRepository.save(appUser);
     }
 }

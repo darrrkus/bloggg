@@ -8,10 +8,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.security.Principal;
 
 @Controller
-@RequestMapping("/home")
+@RequestMapping("/")
 public class HomeController {
 
     @GetMapping()
+    String indexPage(Principal principal, Model model){
+        return "redirect:/home";
+    }
+    @GetMapping("/home")
     String showHomepage(Principal principal, Model model) {
         String username;
         if (principal == null) {

@@ -1,12 +1,14 @@
 package ua.tvsolutions.bloggg.models;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
 @Data
+@NoArgsConstructor
 @Table(name = "users")
 public class AppUser {
 
