@@ -5,11 +5,11 @@
 
 <footer class="py-3 my-4" th:fragment="foot">
     <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-        <li class="nav-item"><a href="/home" class="nav-link px-2 text-muted">Home</a></li>
-        <li class="nav-item"><a href="/profile" class="nav-link px-2 text-muted">Profile</a></li>
-        <li class="nav-item"><a href="/bookmarks" class="nav-link px-2 text-muted">Bookmarks</a></li>
-        <li class="nav-item"><a href="/notifications" class="nav-link px-2 text-muted">Notifications</a></li>
-        <li class="nav-item"><a href="/recomendations" class="nav-link px-2 text-muted">Recomendations</a></li>
+        <li class="nav-item"><a th:href="@{/home}" class="nav-link px-2 text-muted">Home</a></li>
+        <li class="nav-item"><a th:href="@{/profile}" class="nav-link px-2 text-muted">Profile</a></li>
+        <li class="nav-item"><a th:href="@{/bookmarks}" class="nav-link px-2 text-muted">Bookmarks</a></li>
+        <li class="nav-item"><a th:href="@{/notifications}" class="nav-link px-2 text-muted">Notifications</a></li>
+        <li class="nav-item"><a th:href="@{/recomendations}" class="nav-link px-2 text-muted">Recommendations</a></li>
     </ul>
     <p class="text-center text-muted">© 2021 Company, Inc</p>
 </footer>

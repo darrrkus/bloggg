@@ -23,7 +23,8 @@ public class ProfileController {
     }
 
     @GetMapping
-    String showProfilePage(){
+    String showProfilePage(Model model, Principal principal){
+        model.addAttribute("username", principal.getName());
         return "profile";
     }
 
