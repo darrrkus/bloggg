@@ -27,7 +27,7 @@ public class AppUserService implements UserDetailsService {
     private RoleRepository roleRepository;
 
     @Autowired
-    public void setAppUserRepository(AppUserRepository appUserRepository,
+    public AppUserService(AppUserRepository appUserRepository,
                                      RoleRepository roleRepository) {
         this.appUserRepository = appUserRepository;
         this.roleRepository = roleRepository;
@@ -49,7 +49,7 @@ public class AppUserService implements UserDetailsService {
 
     @Transactional
     public void registerNewUser(AppUser appUser) {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(); //TODO : rewrite this part
         String cryptPassword = encoder.encode(appUser.getPassword());
         appUser.setPassword(cryptPassword);
         appUser.setRoles(Collections.singleton(roleRepository.findByName("ROLE_USER")));
