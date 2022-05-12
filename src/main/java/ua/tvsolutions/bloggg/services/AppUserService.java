@@ -37,6 +37,7 @@ public class AppUserService implements UserDetailsService {
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         AppUser appUser = appUserRepository.findByUsername(username);
+        if(appUser==null) throw new UsernameNotFoundException(String.format("user %s not found", username));
         return new User(appUser.getUsername(), appUser.getPassword(),
                 mapRolesToAuthorities(appUser.getRoles()));
     }
@@ -54,5 +55,9 @@ public class AppUserService implements UserDetailsService {
         appUser.setPassword(cryptPassword);
         appUser.setRoles(Collections.singleton(roleRepository.findByName("ROLE_USER")));
         appUserRepository.save(appUser);
+    }
+
+    public AppUser findByUsername(String username) {
+        return appUserRepository.findByUsername(username);
     }
 }

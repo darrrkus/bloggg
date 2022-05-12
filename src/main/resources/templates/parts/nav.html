@@ -27,26 +27,24 @@
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" th:href="@{/home}">Home</a>
             </li>
-            <!--                <li class="nav-item">-->
-            <!--                    <a class="nav-link" href="#">Link</a>-->
-            <!--                </li>-->
+
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" th:href="@{/profile}" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
                    aria-expanded="false">
-                    Profile
+                    <div style="display: inline" sec:authentication="name"/>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" th:href="@{/profile/edit}">Edit...</a></li>
+                    <li><a class="dropdown-item" th:href="@{/profile/edit}">Edit profile...</a></li>
                     <!--                        <li><a class="dropdown-item" href="#">Another action</a></li>-->
+
+                    <li><a class="dropdown-item" th:href="@{/logout}">Logout</a></li>
                     <li>
                         <hr class="dropdown-divider">
                     </li>
-                    <li><a class="dropdown-item" th:href="@{/profile/delete}">Delete...</a></li>
+                    <li><a class="dropdown-item" th:href="@{/profile/delete}">Delete profile...</a></li>
                 </ul>
             </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" th:text="${username}">Disabled</a>
-            </li>
+
         </ul>
         <form class="d-flex">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
