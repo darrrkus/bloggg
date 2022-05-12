@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ua.tvsolutions.bloggg.models.AppUser;
 import ua.tvsolutions.bloggg.services.AppUserService;
 
+import java.security.Principal;
+
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -34,4 +36,9 @@ public class UserController {
         }
         return "redirect:/home";
     }
+
+//    @PostMapping("/delete")
+//    String deleteUser(Principal principal){
+//
+//    }
 }

@@ -15,6 +15,7 @@ public class HomeController {
     String indexPage(Principal principal, Model model){
         return "redirect:/home";
     }
+
     @GetMapping("/home")
     String showHomepage(Principal principal, Model model) {
         String username;

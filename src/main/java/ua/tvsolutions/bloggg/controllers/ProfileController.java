@@ -34,6 +34,7 @@ public class ProfileController {
         AppUser appUser = appUserRepository.findByUsername(username);
         if (appUser==null) throw new UsernameNotFoundException(String.format("user %s is not found!",username));
         model.addAttribute("appUser",appUser);
+        model.addAttribute("username", appUser.getUsername());
         return "profile";
     }
 }
