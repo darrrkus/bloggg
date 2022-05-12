@@ -23,14 +23,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/login", "/logout","user/**").permitAll()
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/","/home","/profile/**").authenticated()
+                    .antMatchers("/user/**").permitAll()
+                    .antMatchers("/admin/**").hasRole("ADMIN")
+                    .anyRequest().authenticated()
                 .and()
-                .formLogin()
-                .defaultSuccessUrl("/home")
+                    .formLogin()
+                        .permitAll()
+                        .defaultSuccessUrl("/home")
                 .and()
-                .logout().logoutSuccessUrl("/home");
+                    .logout()
+                        .permitAll()
+                        .logoutSuccessUrl("/home");
 
     }
 

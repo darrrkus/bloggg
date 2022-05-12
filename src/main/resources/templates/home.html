@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <div th:include="~{/parts/nav :: header-css}"/>
+    <div th:include="~{/parts/nav :: header-css}"></div>
     <title>Bloggg</title>
 
 </head>
 <body>
 
-<div th:include="~{/parts/nav :: navbar}"/>
+<div th:include="~{/parts/nav :: navbar}"></div>
 
-<div th:include="~{/parts/footer :: foot}"/>
+<div th:include="~{/parts/footer :: foot}"></div>
 
-<div th:include="~{/parts/nav :: boot-script}"/>
+<!--<div th:include="~{/parts/nav :: boot-script}"></div>-->
 </body>
 </html>
