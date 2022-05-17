@@ -10,6 +10,27 @@
 
 <div th:include="~{/parts/nav :: navbar}"></div>
 
+<div class="container">
+    <form method="post" th:action="@{/}">
+        <input type="text" name="text" placeholder="Input text">
+        <input type="text" name="tag" placeholder="Input tag">
+        <button type="submit">Save post</button>
+    </form>
+    <h2>Posts:</h2>
+    <div th:each="post:${posts}">
+        <strong th:text="${post.getAuthorName()}"></strong>
+        <i>
+        <span th:text="${post.id}"></span>
+        </i>
+        <span th:text="${post.text}"></span>
+        <b>
+            <span th:text="${post.tag}"></span>
+        </b>
+    </div>
+
+</div>
+
+
 <div th:include="~{/parts/footer :: foot}"></div>
 
 <!--<div th:include="~{/parts/nav :: boot-script}"></div>-->

@@ -34,7 +34,7 @@ public class UserController {
         if (appUser!=null) {
              appUserService.registerNewUser(appUser);
         }
-        return "redirect:/home";
+        return "redirect:/";
     }
 
 //    @PostMapping("/delete")

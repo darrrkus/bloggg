@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Data
@@ -19,6 +20,8 @@ public class AppUser {
     private String username;
     @Column(name = "password", length = 80, nullable = false)
     private String password;
+
+//    private List<Post> postList;
 
     @ManyToMany(
 //            fetch = FetchType.EAGER

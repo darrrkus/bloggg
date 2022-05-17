@@ -29,11 +29,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .formLogin()
                         .permitAll()
-                        .defaultSuccessUrl("/home")
+                        .defaultSuccessUrl("/")
                 .and()
                     .logout()
                         .permitAll()
-                        .logoutSuccessUrl("/home");
+                        .logoutSuccessUrl("/");
 
     }
 
