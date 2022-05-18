@@ -13,12 +13,9 @@ import ua.tvsolutions.bloggg.services.AppUserService;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
     private AppUserService appUserService;
 
-    @Autowired
-    public void setAppUserService(AppUserService appUserService) {
-        this.appUserService = appUserService;
-    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

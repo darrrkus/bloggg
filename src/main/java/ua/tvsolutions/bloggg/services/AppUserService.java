@@ -23,8 +23,8 @@ import java.util.stream.Collectors;
 @Service
 public class AppUserService implements UserDetailsService {
 
-    private AppUserRepository appUserRepository;
-    private RoleRepository roleRepository;
+    private final AppUserRepository appUserRepository;
+    private final RoleRepository roleRepository;
 
     @Autowired
     public AppUserService(AppUserRepository appUserRepository,
@@ -39,13 +39,16 @@ public class AppUserService implements UserDetailsService {
         AppUser appUser = appUserRepository.findByUsername(username);
         if(appUser==null) throw new UsernameNotFoundException(String.format("user %s not found", username));
         return new User(appUser.getUsername(), appUser.getPassword(),
-                mapRolesToAuthorities(appUser.getRoles()));
+                appUser.getAuthorities());
     }
 
 
 
     Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<? extends Role> roles){
-        return roles.stream().map(r->new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
+        return roles
+                .stream()
+                .map(r->new SimpleGrantedAuthority(r.getAuthority()))
+                .collect(Collectors.toList());
     }
 
     @Transactional

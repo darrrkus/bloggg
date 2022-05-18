@@ -34,6 +34,7 @@ public class MainController {
             posts = postRepository.findAll();
         }
         model.addAttribute("posts", posts);
+        model.addAttribute("filter", filter);
         return "/home";
     }
 
