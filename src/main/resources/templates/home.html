@@ -9,31 +9,35 @@
 <body>
 
 <div th:include="~{/parts/nav :: navbar}"></div>
-
+<!--    Post input area-->
 <div class="container">
-    <form method="post" th:action="@{/}">
+    <form method="post" th:action="@{/}" enctype="multipart/form-data">
         <input type="text" name="text" placeholder="Input text">
         <input type="text" name="tag" placeholder="Input tag">
+        <input type="file" name="file">
         <button type="submit">Save post</button>
     </form>
-    <form class="d-flex" th:action="@{/}" th:object="${filter}">
-        <input class="form-control me-2"
-               type="search"
+    <!--    Filter input area -->
+    <form th:action="@{/}" th:object="${filter}">
+        <input type="search"
                th:placeholder="${filter}"
                aria-label="Search"
                name="filter">
         <button class="btn btn-outline-success" type="submit">Search</button>
     </form>
+    <!--    Posts-->
     <h2>Posts:</h2>
     <div th:each="post:${posts}">
         <strong th:text="${post.getAuthorName()}"></strong>
-        <i>
-        <span th:text="${post.id}"></span>
-        </i>
+        <i> <span th:text="${post.id}"></span> </i>
         <span th:text="${post.text}"></span>
-        <b>
-            <span th:text="${post.tag}"></span>
-        </b>
+        <b> <span th:text="${post.tag}"></span></b>
+        <div>
+<!--            <img th:if="${post.filename}" th:src="@{/img/{filename}(filename = ${post.filename})}">-->
+
+            <img th:if="${not #strings.isEmpty(post.filename)}" th:src="@{/img/{filename}(filename = ${post.filename})}">
+
+        </div>
     </div>
 
 

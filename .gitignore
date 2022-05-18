@@ -35,3 +35,9 @@ build/
 ### Mac
 .DS_Store
 src/.DS_Store
+
+
+### images
+
+*.png
+*.jpg
