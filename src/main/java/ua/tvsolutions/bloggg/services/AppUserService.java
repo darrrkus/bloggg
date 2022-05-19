@@ -25,36 +25,37 @@ public class AppUserService implements UserDetailsService {
 
     private final AppUserRepository appUserRepository;
     private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public AppUserService(AppUserRepository appUserRepository,
-                                     RoleRepository roleRepository) {
+                          RoleRepository roleRepository,
+                          PasswordEncoder passwordEncoder) {
         this.appUserRepository = appUserRepository;
         this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         AppUser appUser = appUserRepository.findByUsername(username);
-        if(appUser==null) throw new UsernameNotFoundException(String.format("user %s not found", username));
+        if (appUser == null) throw new UsernameNotFoundException(String.format("user %s not found", username));
         return new User(appUser.getUsername(), appUser.getPassword(),
                 appUser.getAuthorities());
     }
 
 
-
-    Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<? extends Role> roles){
+    Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<? extends Role> roles) {
         return roles
                 .stream()
-                .map(r->new SimpleGrantedAuthority(r.getAuthority()))
+                .map(r -> new SimpleGrantedAuthority(r.getAuthority()))
                 .collect(Collectors.toList());
     }
 
     @Transactional
     public void registerNewUser(AppUser appUser) {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(); //TODO : rewrite this part
-        String cryptPassword = encoder.encode(appUser.getPassword());
+        String cryptPassword = passwordEncoder.encode(appUser.getPassword());
         appUser.setPassword(cryptPassword);
         appUser.setRoles(Collections.singleton(roleRepository.findByName("ROLE_USER")));
         appUserRepository.save(appUser);
