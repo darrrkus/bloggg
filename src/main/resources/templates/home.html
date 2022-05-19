@@ -11,14 +11,14 @@
 <div th:include="~{/parts/nav :: navbar}"></div>
 <!--    Post input area-->
 <div class="container">
-    <form method="post" th:action="@{/}" enctype="multipart/form-data">
+    <form method="post" th:action="@{/home}" enctype="multipart/form-data">
         <input type="text" name="text" placeholder="Input text">
         <input type="text" name="tag" placeholder="Input tag">
         <input type="file" name="file">
         <button type="submit">Save post</button>
     </form>
     <!--    Filter input area -->
-    <form th:action="@{/}" th:object="${filter}">
+    <form th:action="@{/home}" th:object="${filter}">
         <input type="search"
                th:placeholder="${filter}"
                aria-label="Search"

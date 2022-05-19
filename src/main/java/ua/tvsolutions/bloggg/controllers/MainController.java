@@ -26,12 +26,15 @@ public class MainController {
 
     @Value("${upload.path}")
     private String uploadPath;
-    @Autowired
-    private PostRepository postRepository;
-    @Autowired
-    private AppUserService appUserService;
+    private final PostRepository postRepository;
+    private final AppUserService appUserService;
 
-    @GetMapping()
+    public MainController(PostRepository postRepository, AppUserService appUserService) {
+        this.postRepository = postRepository;
+        this.appUserService = appUserService;
+    }
+
+    @GetMapping("/home")
     String indexPage(Model model,
                      @RequestParam(name = "filter", defaultValue = "") String filter) {
         Iterable<Post> posts;
@@ -45,35 +48,32 @@ public class MainController {
         return "/home";
     }
 
-    @PostMapping("/")
+    @PostMapping("/home")
     String addPost(@RequestParam String text,
                    @RequestParam String tag,
                    @RequestParam("file") MultipartFile file,
-                   Principal principal) throws IOException {
+                   Principal principal) throws IOException
+    {
         AppUser author = appUserService.findByUsername(principal.getName());
         Post newPost = new Post(text, tag, author);
-        if (file != null) {
-            System.out.println("File exists");
+        if (file != null && !file.getOriginalFilename().isEmpty()) {
             File uploadDir = new File(uploadPath);
-            if (!uploadDir.exists()){
+            if (!uploadDir.exists()) {
                 uploadDir.mkdir();
             }
             String uuidFile = UUID.randomUUID().toString();
             String resultFilename = uuidFile + "." + file.getOriginalFilename();
-            System.out.println(resultFilename);
-            file.transferTo(new File(uploadPath+"\\"+resultFilename));
+            file.transferTo(new File(uploadPath + "\\" + resultFilename));
             newPost.setFilename(resultFilename);
-
         }
-
         postRepository.save(newPost);
-        return "redirect:/";
+        return "redirect:/home";
     }
 
-    @GetMapping("/home")
+    @GetMapping("/")
     String showHomepage() {
 
-        return "redirect:/";
+        return "redirect:/home";
     }
 
 
