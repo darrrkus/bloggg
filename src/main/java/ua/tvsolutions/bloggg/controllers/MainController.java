@@ -1,8 +1,6 @@
 package ua.tvsolutions.bloggg.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -56,7 +54,9 @@ public class MainController {
     {
         AppUser author = appUserService.findByUsername(principal.getName());
         Post newPost = new Post(text, tag, author);
-        if (file != null && !file.getOriginalFilename().isEmpty()) {
+        if (file != null &&
+                file.getOriginalFilename() != null &&
+                !file.getOriginalFilename().isEmpty()) {
             File uploadDir = new File(uploadPath);
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();

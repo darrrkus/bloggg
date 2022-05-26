@@ -17,7 +17,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public SecurityConfig(AppUserService appUserService,
-                                        PasswordEncoder passwordEncoder){
+                          PasswordEncoder passwordEncoder){
         this.appUserService = appUserService;
         this.passwordEncoder = passwordEncoder;
     }
